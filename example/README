@@ -1,0 +1,28 @@
+====================
+Minimization Example
+====================
+
+The .prm and .rtf files are needed to run simulations of azido or akynyl
+small molecules, functional group, or unnatural amino acids. 
+
+In general, these parameters can be used as described in CHARMM documentation.
+CHARMM is constructed so that new functionality can be added by simply
+reading new .prm and .rtf files with new functional groups. Below are more
+specific instructions.
+
+In this example, a protein with an uAA pAz mutation (PDB ID: 5xhf) will be
+minimized for 500 SD steps. Appropriate protein, CGenFF, and new azido and
+alkynyl parameters will be applied to the novel functional groups 
+introduced by the uAA mutation.
+
+1. Obtain CHARMM simulation code and executable.
+2. Obtain the new azide and alkyne topology and parameter files.
+3. The minimize.inp script includes example read topology and parameter 
+   commands for the new azide and alkyne topology and parameter files.
+4. Run CHARMM simulation by typing 
+   charmm < minimize.inp > minimize.out
+5. Outputs will be recorded in the minimize.out file. New .pdb, .psf, and .crd
+   files will also be written to record the changes in protein structure.
+
+
+

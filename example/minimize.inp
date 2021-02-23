@@ -1,0 +1,44 @@
+* Solvation script
+*
+
+! TOPPAR
+stream ./toppar.str
+
+!-----------------------------
+!read sequences & generate PSF 
+!for a new solvation, renameing in "open" and "generate"
+!-----------------------------
+open read card unit 10 name ./"5xhf.charmm.pdb"
+read sequ pdb unit 10
+generate 5xhf first NTER last CTER setup
+read coor pdb unit 10
+close unit 10
+
+!-------------------------------------------------
+! Build internal coordinate table & Hydrogen atoms
+!-------------------------------------------------
+
+IC para
+IC FILL PREServe
+IC build
+hbuild
+
+!--------------------------
+! minimize structure energy
+!--------------------------
+
+cons harm force 5.0 select .not. hydrogen end
+mini   sd nstep  500 nprint 100 step 0.005 inbfrq -1 !imgfrq -1
+cons harm clear
+coor orient rms select hydrogen end
+
+write coor card name 5xhf.minimize.crd
+*CRD
+*
+write psf card name 5xhf.minimize.psf
+*PSF
+*
+write coor pdb card name 5xhf.minimize.pdb
+
+stop
+
